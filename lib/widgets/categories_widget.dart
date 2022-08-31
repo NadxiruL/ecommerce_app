@@ -12,7 +12,7 @@ class CategoriesWidget extends StatelessWidget {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 15),
+                padding: EdgeInsets.only(left: 15),
                 child: Text(
                   'Categories',
                   style: TextStyle(

@@ -1,24 +1,32 @@
-import 'package:ecommerce_app/widgets/all_products.dart';
-import 'package:ecommerce_app/widgets/categories_widget.dart';
-import 'package:flutter/material.dart';
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import '../widgets/search_widget.dart';
+import 'profile_screen.dart';
+import '../providers/utils.dart';
+import 'package:provider/provider.dart';
+import 'products_overview_screen.dart';
+import 'package:flutter/material.dart';
+import 'cart_screen.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   static const routeName = '/home-page';
 
+  List<Widget> _widgets = <Widget>[
+    ProductsOverviewScreen(),
+    CartScreen(),
+    ProfileScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final utils = Provider.of<Utils>(context);
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
           colors: [
-            //  Colors.purple,
-            //  Colors.white
             Color.fromARGB(255, 5, 155, 201),
             Color.fromARGB(255, 255, 255, 255)
           ],
@@ -26,40 +34,35 @@ class HomePage extends StatelessWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          automaticallyImplyLeading: false,
           title: const Center(
-            child: Text(
-              'MyCommerce',
-            ),
+            child: Text('MyCommerce'),
           ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          automaticallyImplyLeading: false,
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                // SEARCH WIDGET //
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  // color: Colors.amber,
-                  height: 70,
-                  child: SearchWidget(),
-                ),
-
-                // CATEGORIES //
-                CategoriesWidget(),
-
-                // ALL PRODUCTS //
-                AllProductsWidget(),
-
-                //
-                AllProductsWidget(),
-              ],
+        body: Center(child: _widgets.elementAt(utils.selectedIndex)),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
             ),
-          ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart),
+              label: 'Cart',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Account',
+            )
+          ],
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          selectedItemColor: Colors.cyan,
+          currentIndex: utils.selectedIndex,
+          onTap: utils.onItemTap,
         ),
       ),
     );
