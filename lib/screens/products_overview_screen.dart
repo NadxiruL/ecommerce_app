@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/all_products.dart';
+import '../widgets/products_list.dart';
 import '../widgets/categories_widget.dart';
 import '../widgets/search_widget.dart';
 
@@ -26,33 +26,26 @@ class ProductsOverviewScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          automaticallyImplyLeading: false,
-        ),
         body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                // SEARCH WIDGET //
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  // color: Colors.amber,
-                  height: 70,
-                  child: SearchWidget(),
-                ),
+          child: Column(
+            children: [
+              // SEARCH WIDGET //
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                // color: Colors.amber,
+                height: 70,
+                child: SearchWidget(),
+              ),
 
-                // CATEGORIES //
-                CategoriesWidget(),
+              // CATEGORIES //
+              CategoriesWidget(),
 
-                // ALL PRODUCTS //
-                AllProductsWidget(),
+              // ALL PRODUCTS //
+              AllProductsWidget(),
 
-                //
-                AllProductsWidget(),
-              ],
-            ),
+              // //
+              // AllProductsWidget(),
+            ],
           ),
         ),
       ),

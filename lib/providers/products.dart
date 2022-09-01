@@ -1,12 +1,18 @@
 // To parse this JSON data, do
 //
-//     final product = productFromMap(jsonString);
+//     final product = productFromJson(jsonString);
 
 import 'dart:convert';
 
-Product productFromMap(String str) => Product.fromMap(json.decode(str));
+Product productFromJson(String str) => Product.fromJson(json.decode(str));
 
-String productToMap(Product data) => json.encode(data.toMap());
+String productToJson(Product data) => json.encode(data.toJson());
+
+ProductElement productElementFromJson(String str) =>
+    ProductElement.fromJson(json.decode(str));
+
+// List<ProductElement> blendFromJson(String str) => List<ProductElement>.from(
+//     json.decode(str).map((x) => List<ProductElement>.fromJson(x)));
 
 class Product {
   Product({
@@ -21,16 +27,16 @@ class Product {
   int skip;
   int limit;
 
-  factory Product.fromMap(Map<String, dynamic> json) => Product(
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
         products: List<ProductElement>.from(
-            json["products"].map((x) => ProductElement.fromMap(x))),
+            json["products"].map((x) => ProductElement.fromJson(x))),
         total: json["total"],
         skip: json["skip"],
         limit: json["limit"],
       );
 
-  Map<String, dynamic> toMap() => {
-        "products": List<dynamic>.from(products.map((x) => x.toMap())),
+  Map<String, dynamic> toJson() => {
+        "products": List<dynamic>.from(products.map((x) => x.toJson())),
         "total": total,
         "skip": skip,
         "limit": limit,
@@ -64,7 +70,7 @@ class ProductElement {
   String thumbnail;
   List<String> images;
 
-  factory ProductElement.fromMap(Map<String, dynamic> json) => ProductElement(
+  factory ProductElement.fromJson(Map<String, dynamic> json) => ProductElement(
         id: json["id"],
         title: json["title"],
         description: json["description"],
@@ -78,7 +84,7 @@ class ProductElement {
         images: List<String>.from(json["images"].map((x) => x)),
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
         "description": description,
