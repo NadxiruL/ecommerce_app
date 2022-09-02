@@ -1,5 +1,5 @@
-import 'package:ecommerce_app/providers/product.dart';
-import 'package:ecommerce_app/screens/product_details_screen.dart';
+import '../providers/product.dart';
+import '../screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,15 +32,23 @@ class _AllProductsWidgetState extends State<AllProductsWidget> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => ProductDetailsScreen(
-                          imageUrl: data.produk!.products[index].thumbnail),
-                      // settings: RouteSettings(
-                      //     arguments: data.produk!.products[index].thumbnail),
+                        imageUrl: data.produk!.products[index].thumbnail,
+                        title: data.produk!.products[index].title,
+                        description: data.produk!.products[index].description,
+                      ),
                     ),
                   );
                 },
                 child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   elevation: 5,
-                  child: Image.network(data.produk!.products[index].thumbnail),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    child:
+                        Image.network(data.produk!.products[index].thumbnail),
+                  ),
                 ),
               );
             })

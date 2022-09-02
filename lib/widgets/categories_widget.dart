@@ -24,7 +24,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
     return loadData.isLoading
         ? ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 7,
+            itemCount: loadData.produk!.products.length,
             itemBuilder: (context, index) {
               return Card(
                 elevation: 5,
@@ -38,46 +38,3 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
         : CircularProgressIndicator();
   }
 }
-
-
-// Container(
-//             margin: EdgeInsets.only(top: 20),
-//             child: Column(
-//               children: [
-//                 Row(
-//                   children: const [
-//                     Padding(
-//                       padding: EdgeInsets.only(left: 15),
-//                       child: Text(
-//                         'Categories',
-//                         style: TextStyle(
-//                           fontSize: 20,
-//                           fontWeight: FontWeight.bold,
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//                 Container(
-//                   padding: const EdgeInsets.all(8),
-//                   height: 50,
-//                   // color: Colors.amber,
-//                   // color: Colors.amberAccent,
-//                   child: ListView.builder(
-//                     scrollDirection: Axis.horizontal,
-//                     itemCount: 7,
-//                     itemBuilder: (context, index) {
-//                       return Card(
-//                         elevation: 5,
-//                         child: Padding(
-//                           padding: const EdgeInsets.all(5.0),
-//                           child:
-//                               Text(loadData.produk!.products[index].category),
-//                         ),
-//                       );
-//                     },
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           )
