@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
 
   static const routeName = '/home-page';
 
-  List<Widget> _widgets = <Widget>[
+  final List<Widget> _widgets = <Widget>[
     ProductsOverviewScreen(),
     CartScreen(),
     ProfileScreen(),
@@ -26,10 +26,7 @@ class HomePage extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
-          colors: [
-            Color.fromARGB(255, 5, 155, 201),
-            Color.fromARGB(255, 255, 255, 255)
-          ],
+          colors: color,
         ),
       ),
       child: Scaffold(

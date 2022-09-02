@@ -9,3 +9,8 @@ class Utils extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+List<Color> color = <Color>[
+  Color.fromARGB(255, 5, 155, 201),
+  Color.fromARGB(255, 255, 255, 255),
+];

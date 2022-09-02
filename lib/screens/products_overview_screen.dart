@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../providers/utils.dart';
 import '../widgets/categories_widget.dart';
 import '../widgets/products_listview.dart';
 import '../widgets/search_widget.dart';
@@ -20,14 +20,12 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [
-              Color.fromARGB(255, 5, 155, 201),
-              Color.fromARGB(255, 255, 255, 255)
-            ]),
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          colors: color,
+        ),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,

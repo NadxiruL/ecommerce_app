@@ -35,6 +35,7 @@ class _AllProductsWidgetState extends State<AllProductsWidget> {
                         imageUrl: data.produk!.products[index].thumbnail,
                         title: data.produk!.products[index].title,
                         description: data.produk!.products[index].description,
+                        price: data.produk!.products[index].price,
                       ),
                     ),
                   );
