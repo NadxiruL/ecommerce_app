@@ -4,12 +4,13 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
+import '../services/product_service.dart';
+
 Product productFromJson(String str) => Product.fromJson(json.decode(str));
 
 String productToJson(Product data) => json.encode(data.toJson());
-
-ProductElement productElementFromJson(String str) =>
-    ProductElement.fromJson(json.decode(str));
 
 // List<ProductElement> blendFromJson(String str) => List<ProductElement>.from(
 //     json.decode(str).map((x) => List<ProductElement>.fromJson(x)));
@@ -43,7 +44,7 @@ class Product {
       };
 }
 
-class ProductElement {
+class ProductElement with ChangeNotifier {
   ProductElement({
     required this.id,
     required this.title,
@@ -97,4 +98,18 @@ class ProductElement {
         "thumbnail": thumbnail,
         "images": List<dynamic>.from(images.map((x) => x)),
       };
+}
+
+class Products with ChangeNotifier {
+  Product? produk;
+  bool isLoading = false;
+  getProducts() async {
+    produk = await (ApiService().fetchProducts());
+
+    if (produk != null) {
+      isLoading = true;
+    }
+
+    notifyListeners();
+  }
 }

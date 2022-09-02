@@ -1,7 +1,7 @@
-import 'package:ecommerce_app/providers/utils.dart';
-import 'package:ecommerce_app/screens/home_page_screen.dart';
-import 'package:ecommerce_app/screens/login_screen.dart';
-import 'package:ecommerce_app/services/product_service.dart';
+import '../providers/product.dart';
+import '../providers/utils.dart';
+import '../screens/home_page_screen.dart';
+import '../screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           // create: (_) => BlendProvider(),
-          value: Produk(),
+          value: Products(),
         ),
       ],
       child: MaterialApp(
