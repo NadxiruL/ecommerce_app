@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../providers/product.dart';
 
 class ApiService {
-  Future fetchProducts() async {
+  Future<Product?> fetchProducts() async {
     try {
       var client = http.Client();
       var uri = Uri.parse('https://dummyjson.com/products');
@@ -18,4 +17,18 @@ class ApiService {
       print(e);
     }
   }
+
+  // Future<Product?> fetchProducts() async {
+  //   // final  apiUrl = "https://reqres.in/api/users";
+  //   var uri = Uri.parse('https://dummyjson.com/products');
+  //   final response = await http.get(uri);
+
+  //   if (response.statusCode == 201) {
+  //     final String responseString = response.body;
+
+  //     return productFromJson(responseString);
+  //   } else {
+  //     return null;
+  //   }
+  // }
 }

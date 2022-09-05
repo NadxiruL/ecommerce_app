@@ -15,7 +15,7 @@ String productToJson(Product data) => json.encode(data.toJson());
 // List<ProductElement> blendFromJson(String str) => List<ProductElement>.from(
 //     json.decode(str).map((x) => List<ProductElement>.fromJson(x)));
 
-class Product {
+class Product with ChangeNotifier {
   Product({
     required this.products,
     required this.total,

@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/providers/cart.dart';
 import 'package:ecommerce_app/providers/product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,8 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final data = ModalRoute.of(context)!.settings.arguments;
-    //final loadData = Provider.of<Products>(context, listen:  false)
+    final loadData = Provider.of<Products>(context);
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
