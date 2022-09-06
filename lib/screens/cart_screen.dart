@@ -10,32 +10,18 @@ class CartScreen extends StatefulWidget {
   State<CartScreen> createState() => _CartScreenState();
 }
 
-// Future<UserModel?> submit(String name, String job) async {
-//   // var client = http.Client();
-//   var uri = Uri.parse('https://reqres.in/api/users');
-//   var response = await http.post(uri, body: {
-//     "name": name,
-//     "job": job,
-//   });
-//   print(response.body);
-//   if (response.statusCode == 200) {
-//     var json = response.body;
-
-//     return userModelFromJson(json);
-//   } else {
-//     return null;
-//   }
-// }
-
-Future<UserModel?> createUser(String name, String jobTitle) async {
-  // final  apiUrl = "https://reqres.in/api/users";
+Future<UserModel?> submit(String name, String job) async {
+  // var client = http.Client();
   var uri = Uri.parse('https://reqres.in/api/users');
-  final response = await http.post(uri, body: {"name": name, "job": jobTitle});
-
+  var response = await http.post(uri, body: {
+    "name": name,
+    "job": job,
+  });
+  print(response.body);
   if (response.statusCode == 201) {
-    final String responseString = response.body;
-    print(responseString);
-    return userModelFromJson(responseString);
+    var json = response.body;
+
+    return userModelFromJson(json);
   } else {
     return null;
   }
@@ -56,7 +42,7 @@ class _CartScreenState extends State<CartScreen> {
           child: ElevatedButton(
             onPressed: () async {
               final UserModel? userModel =
-                  await createUser('nadzirulx', 'kuli sahaja');
+                  await submit('nadzirulx', 'kuli sahaja');
               setState(() {
                 _userModel = userModel;
               });
@@ -64,9 +50,9 @@ class _CartScreenState extends State<CartScreen> {
             child: Text('Press'),
           ),
         ),
-        _userModel == null
-            ? CircularProgressIndicator()
-            : Text("The user ${_userModel!.name}")
+        isAvailable
+            ? Text("The user is ${_userModel?.name ?? ''}")
+            : CircularProgressIndicator()
       ],
     );
     //

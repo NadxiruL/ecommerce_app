@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:ecommerce_app/providers/cart.dart';
 import 'package:ecommerce_app/providers/product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 import '../providers/utils.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
+class ProductDetailsScreen extends StatefulWidget {
   final String imageUrl;
   final String title;
   final String description;
@@ -15,6 +18,35 @@ class ProductDetailsScreen extends StatelessWidget {
       required this.title,
       required this.description,
       required this.price});
+
+  @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  Future<Cart?> addtoCart(String userId, String id, String quantity) async {
+    var uri = Uri.parse('https://dummyjson.com/carts/add');
+    var response = await http.post(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        "userId": userId,
+        "products": [
+          {
+            "id": id,
+            "quantity": quantity,
+          },
+        ]
+      }),
+    );
+    print(response.body);
+    if (response.statusCode == 201) {
+      var json = response.body;
+      return cartFromJson(json);
+    }
+  }
+
+  Cart? _cart;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +66,7 @@ class ProductDetailsScreen extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          title: Text(title),
+          title: Text(widget.title),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -47,7 +79,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   child: Container(
                     color: Colors.amber,
                     child: Image.network(
-                      imageUrl,
+                      widget.imageUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -62,10 +94,16 @@ class ProductDetailsScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(title),
-                        Text('\$ $price'),
+                        Text(widget.title),
+                        Text('\$ ${widget.price}'),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final Cart? cart = await addtoCart('1', '1', '2');
+
+                            setState(() {
+                              _cart = cart;
+                            });
+                          },
                           icon: Icon(
                             Icons.add_shopping_cart,
                           ),
@@ -81,7 +119,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     margin: EdgeInsets.only(top: 10),
                     // color: Colors.blue,
                     height: 100,
-                    child: Text(description),
+                    child: Text(widget.description),
                   ),
                 )
               ],
