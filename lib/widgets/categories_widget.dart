@@ -12,25 +12,25 @@ class CategoriesWidget extends StatefulWidget {
 class _CategoriesWidgetState extends State<CategoriesWidget> {
   @override
   void initState() {
-    final product = Provider.of<Products>(context, listen: false);
+    final product = Provider.of<ProductProvider>(context, listen: false);
     super.initState();
     product.getProducts();
   }
 
   @override
   Widget build(BuildContext context) {
-    final loadData = Provider.of<Products>(context);
+    final loadData = Provider.of<ProductProvider>(context);
 
     return loadData.isLoading
         ? ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: loadData.produk!.products.length,
+            itemCount: loadData.product!.products.length,
             itemBuilder: (context, index) {
               return Card(
                 elevation: 5,
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: Text(loadData.produk!.products[index].category),
+                  child: Text(loadData.product!.products[index].category),
                 ),
               );
             },

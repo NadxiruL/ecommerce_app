@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import '../providers/product.dart';
 import '../providers/utils.dart';
 import '../widgets/categories_widget.dart';
-import '../widgets/products_listview.dart';
+import '../widgets/products_list.dart';
 import '../widgets/search_widget.dart';
+import 'package:provider/provider.dart';
 
 class ProductsOverviewScreen extends StatefulWidget {
   // List<Color> bgColor = [
@@ -19,6 +21,7 @@ class ProductsOverviewScreen extends StatefulWidget {
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<ProductProvider>(context);
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -88,7 +91,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                       margin: EdgeInsets.only(top: 10),
                       // color: Colors.blue,
                       height: 170,
-                      child: AllProductsWidget(),
+                      child: ProductList(),
                     ),
                   ],
                 ),

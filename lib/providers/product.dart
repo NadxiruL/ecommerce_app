@@ -1,36 +1,28 @@
-// To parse this JSON data, do
-//
-//     final product = productFromJson(jsonString);
-
+import 'package:flutter/material.dart';
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+import '../services/api_service.dart';
 
-import '../services/product_service.dart';
+Products productsFromJson(String str) => Products.fromJson(json.decode(str));
 
-Product productFromJson(String str) => Product.fromJson(json.decode(str));
+String productsToJson(Products data) => json.encode(data.toJson());
 
-String productToJson(Product data) => json.encode(data.toJson());
-
-// List<ProductElement> blendFromJson(String str) => List<ProductElement>.from(
-//     json.decode(str).map((x) => List<ProductElement>.fromJson(x)));
-
-class Product with ChangeNotifier {
-  Product({
+class Products {
+  Products({
     required this.products,
     required this.total,
     required this.skip,
     required this.limit,
   });
 
-  List<ProductElement> products;
+  List<Product> products;
   int total;
   int skip;
   int limit;
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
-        products: List<ProductElement>.from(
-            json["products"].map((x) => ProductElement.fromJson(x))),
+  factory Products.fromJson(Map<String, dynamic> json) => Products(
+        products: List<Product>.from(
+            json["products"].map((x) => Product.fromJson(x))),
         total: json["total"],
         skip: json["skip"],
         limit: json["limit"],
@@ -44,8 +36,8 @@ class Product with ChangeNotifier {
       };
 }
 
-class ProductElement with ChangeNotifier {
-  ProductElement({
+class Product {
+  Product({
     required this.id,
     required this.title,
     required this.description,
@@ -59,7 +51,7 @@ class ProductElement with ChangeNotifier {
     required this.images,
   });
 
-  int id;
+  String id;
   String title;
   String description;
   int price;
@@ -71,8 +63,8 @@ class ProductElement with ChangeNotifier {
   String thumbnail;
   List<String> images;
 
-  factory ProductElement.fromJson(Map<String, dynamic> json) => ProductElement(
-        id: json["id"],
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+        id: json["id"].toString(),
         title: json["title"],
         description: json["description"],
         price: json["price"],
@@ -100,16 +92,62 @@ class ProductElement with ChangeNotifier {
       };
 }
 
-class Products with ChangeNotifier {
-  Product? produk;
-  bool isLoading = false;
-  getProducts() async {
-    produk = await (ApiService().fetchProducts());
+class ProductProvider with ChangeNotifier {
+  Products? product;
 
-    if (produk != null) {
+  bool isLoading = false;
+
+  getProducts() async {
+    product = (await (ApiService().fetchProducts()));
+
+    if (product != null) {
       isLoading = true;
     }
-
     notifyListeners();
   }
+
+  Product findById(String productId) {
+    return product!.products.firstWhere((element) => element.id == productId);
+  }
+
+  // List<Products> _allproduct = [
+  //   Products(
+  //     id: '1',
+  //     title: 'Nike',
+  //     description: 'Nike Shoes',
+  //     price: 20,
+  //     discountPercentage: 10,
+  //     rating: 5,
+  //     stock: 100,
+  //     brand: 'Nike',
+  //     category: 'Shoes',
+  //     thumbnail:
+  //         'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/e125b578-4173-401a-ab13-f066979c8848/air-force-1-older-shoes-w6PsF3.png',
+  //     images: [
+  //       'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/e125b578-4173-401a-ab13-f066979c8848/air-force-1-older-shoes-w6PsF3.png',
+  //       'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/e125b578-4173-401a-ab13-f066979c8848/air-force-1-older-shoes-w6PsF3.png'
+  //     ],
+  //   ),
+  //   Products(
+  //     id: '2',
+  //     title: 'Nike',
+  //     description: 'Nike Shoes',
+  //     price: 30,
+  //     discountPercentage: 10,
+  //     rating: 5,
+  //     stock: 1500,
+  //     brand: 'Nike',
+  //     category: 'Shoes',
+  //     thumbnail:
+  //         'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/ebad848a-13b1-46d5-a85e-49b4b6a4953c/air-force-1-le-older-shoe-TDGHCN.png',
+  //     images: [
+  //       'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/ebad848a-13b1-46d5-a85e-49b4b6a4953c/air-force-1-le-older-shoe-TDGHCN.png',
+  //       'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/ebad848a-13b1-46d5-a85e-49b4b6a4953c/air-force-1-le-older-shoe-TDGHCN.png'
+  //     ],
+  //   ),
+  // ];
+
+  // List<Products?> get products {
+  //   return [..._allproduct];
+  // }
 }

@@ -14,7 +14,10 @@ class HomePage extends StatelessWidget {
 
   final List<Widget> _widgets = <Widget>[
     ProductsOverviewScreen(),
-    CartScreen(),
+    CartScreen(
+      id: '',
+      quantity: '',
+    ),
     ProfileScreen(),
   ];
 

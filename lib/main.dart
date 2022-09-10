@@ -1,9 +1,13 @@
+import 'package:ecommerce_app/screens/product_details_screen.dart';
+
 import '../providers/product.dart';
 import '../providers/utils.dart';
 import '../screens/home_page_screen.dart';
 import '../screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'providers/cart.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,8 +27,13 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           // create: (_) => BlendProvider(),
-          value: Products(),
+          value: ProductProvider(),
         ),
+
+        // ChangeNotifierProvider.value(
+        //   // create: (_) => BlendProvider(),
+        //   value: Carts(),
+        // ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -42,8 +51,9 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => LoginScreen(),
+          '/': (context) => const LoginScreen(),
           '/home-page': (context) => HomePage(),
+          ProductDetailsScreen.routeName: (context) => ProductDetailsScreen(),
         },
       ),
     );

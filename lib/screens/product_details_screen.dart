@@ -1,26 +1,20 @@
 import 'dart:convert';
 
 import 'package:ecommerce_app/providers/cart.dart';
-import 'package:ecommerce_app/providers/product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import '../providers/product.dart';
 import '../providers/utils.dart';
+import '../providers/cart.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  final String imageUrl;
-  final String title;
-  final String description;
-  final int price;
-  const ProductDetailsScreen(
-      {super.key,
-      required this.imageUrl,
-      required this.title,
-      required this.description,
-      required this.price});
+  const ProductDetailsScreen({super.key});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+
+  static const routeName = '/product-details';
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
@@ -48,10 +42,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   Cart? _cart;
 
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   // Provider.of<Carts>(context).addCart;
+  // }
+
   @override
   Widget build(BuildContext context) {
-    // final data = ModalRoute.of(context)!.settings.arguments;
-    final loadData = Provider.of<Products>(context);
+    final productId = ModalRoute.of(context)?.settings.arguments as String;
+    final loadedProduct =
+        Provider.of<ProductProvider>(context).findById(productId);
 
     return Container(
       decoration: BoxDecoration(
@@ -66,7 +68,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          title: Text(widget.title),
+          title: Text(loadedProduct.title),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -79,7 +81,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   child: Container(
                     color: Colors.amber,
                     child: Image.network(
-                      widget.imageUrl,
+                      loadedProduct.thumbnail,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -94,16 +96,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(widget.title),
-                        Text('\$ ${widget.price}'),
+                        Text(loadedProduct.title),
+                        Text('\$ ${loadedProduct.price}'),
                         IconButton(
                           onPressed: () async {
-                            final Cart? cart = await addtoCart('1', '1', '2');
+                            final Cart? carts =
+                                await addtoCart('1', '1', '2323123');
 
                             setState(() {
-                              _cart = cart;
+                              _cart = carts;
                             });
                           },
+
+                          // onPressed: () async =>
+                          //     await cart.addCart('1', '1', '2'),
                           icon: Icon(
                             Icons.add_shopping_cart,
                           ),
@@ -119,7 +125,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     margin: EdgeInsets.only(top: 10),
                     // color: Colors.blue,
                     height: 100,
-                    child: Text(widget.description),
+                    child: Text(loadedProduct.description),
                   ),
                 )
               ],

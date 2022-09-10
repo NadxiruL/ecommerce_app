@@ -1,9 +1,11 @@
 // To parse this JSON data, do
 //
 //     final cart = cartFromJson(jsonString);
+import 'package:ecommerce_app/services/api_service.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
+
 import 'dart:convert';
 
 Cart cartFromJson(String str) => Cart.fromJson(json.decode(str));
@@ -123,6 +125,17 @@ class Product with ChangeNotifier {
       };
 }
 
-class Carts with ChangeNotifier {
-  Cart? cart;
-}
+// class Carts with ChangeNotifier {
+//   Cart? cart;
+//   bool isLoading = false;
+
+//   addCart(String id, String title, String price) async {
+//     cart = await ApiService().addtoCart(id, title, price);
+
+//     if (cart != null) {
+//       isLoading = true;
+//     }
+//     print(cart);
+//     notifyListeners();
+//   }
+// }
