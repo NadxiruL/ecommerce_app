@@ -51,9 +51,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final productId = ModalRoute.of(context)?.settings.arguments as String;
-    final loadedProduct =
-        Provider.of<ProductProvider>(context).findById(productId);
+    final productId = ModalRoute.of(context)?.settings.arguments as String?;
+
+    //find product with specific id
+    final loadedProduct = Provider.of<ProductProvider>(context, listen: false)
+        .findById(productId);
 
     return Container(
       decoration: BoxDecoration(
@@ -68,7 +70,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          title: Text(loadedProduct.title),
+          title: Text(loadedProduct.title as String),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -81,7 +83,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   child: Container(
                     color: Colors.amber,
                     child: Image.network(
-                      loadedProduct.thumbnail,
+                      loadedProduct.thumbnail as String,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -96,20 +98,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(loadedProduct.title),
+                        Text(loadedProduct.title as String),
                         Text('\$ ${loadedProduct.price}'),
                         IconButton(
-                          onPressed: () async {
-                            final Cart? carts =
-                                await addtoCart('1', '1', '2323123');
-
-                            setState(() {
-                              _cart = carts;
-                            });
-                          },
-
-                          // onPressed: () async =>
-                          //     await cart.addCart('1', '1', '2'),
+                          onPressed: () {},
                           icon: Icon(
                             Icons.add_shopping_cart,
                           ),
@@ -125,7 +117,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     margin: EdgeInsets.only(top: 10),
                     // color: Colors.blue,
                     height: 100,
-                    child: Text(loadedProduct.description),
+                    child: Text(loadedProduct.description as String),
                   ),
                 )
               ],

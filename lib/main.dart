@@ -7,8 +7,6 @@ import '../screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'providers/cart.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -21,19 +19,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(
-          // create: (_) => BlendProvider(),
-          value: Utils(),
+        ChangeNotifierProvider(
+          create: (_) => Utils(),
         ),
-        ChangeNotifierProvider.value(
-          // create: (_) => BlendProvider(),
-          value: ProductProvider(),
+        ChangeNotifierProvider(
+          create: (_) => ProductProvider(),
         ),
-
-        // ChangeNotifierProvider.value(
-        //   // create: (_) => BlendProvider(),
-        //   value: Carts(),
-        // ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

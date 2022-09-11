@@ -1,7 +1,7 @@
 // To parse this JSON data, do
 //
 //     final cart = cartFromJson(jsonString);
-import 'package:ecommerce_app/services/api_service.dart';
+
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';

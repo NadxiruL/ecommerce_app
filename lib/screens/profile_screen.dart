@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
             children: [
               const CircleAvatar(
                 backgroundImage: NetworkImage(
-                    'https://www.facebook.com/photo/?fbid=4744416528914270&set=a.151962668159702'),
+                    'https://media-exp1.licdn.com/dms/image/C5603AQF7UpXLBW8rxA/profile-displayphoto-shrink_800_800/0/1661490832894?e=1668643200&v=beta&t=d5d74MvnGMiG5zJEsRntjAvLBLCC4MsBuDjHG5qIbiQ'),
                 radius: 100,
               ),
               Container(

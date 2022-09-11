@@ -7,7 +7,7 @@ Products productsFromJson(String str) => Products.fromJson(json.decode(str));
 
 String productsToJson(Products data) => json.encode(data.toJson());
 
-class Products {
+class Products with ChangeNotifier {
   Products({
     required this.products,
     required this.total,
@@ -36,7 +36,7 @@ class Products {
       };
 }
 
-class Product {
+class Product with ChangeNotifier {
   Product({
     required this.id,
     required this.title,
@@ -106,48 +106,8 @@ class ProductProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Product findById(String productId) {
+//find product with specific id
+  Product findById(String? productId) {
     return product!.products.firstWhere((element) => element.id == productId);
   }
-
-  // List<Products> _allproduct = [
-  //   Products(
-  //     id: '1',
-  //     title: 'Nike',
-  //     description: 'Nike Shoes',
-  //     price: 20,
-  //     discountPercentage: 10,
-  //     rating: 5,
-  //     stock: 100,
-  //     brand: 'Nike',
-  //     category: 'Shoes',
-  //     thumbnail:
-  //         'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/e125b578-4173-401a-ab13-f066979c8848/air-force-1-older-shoes-w6PsF3.png',
-  //     images: [
-  //       'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/e125b578-4173-401a-ab13-f066979c8848/air-force-1-older-shoes-w6PsF3.png',
-  //       'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/e125b578-4173-401a-ab13-f066979c8848/air-force-1-older-shoes-w6PsF3.png'
-  //     ],
-  //   ),
-  //   Products(
-  //     id: '2',
-  //     title: 'Nike',
-  //     description: 'Nike Shoes',
-  //     price: 30,
-  //     discountPercentage: 10,
-  //     rating: 5,
-  //     stock: 1500,
-  //     brand: 'Nike',
-  //     category: 'Shoes',
-  //     thumbnail:
-  //         'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/ebad848a-13b1-46d5-a85e-49b4b6a4953c/air-force-1-le-older-shoe-TDGHCN.png',
-  //     images: [
-  //       'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/ebad848a-13b1-46d5-a85e-49b4b6a4953c/air-force-1-le-older-shoe-TDGHCN.png',
-  //       'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/ebad848a-13b1-46d5-a85e-49b4b6a4953c/air-force-1-le-older-shoe-TDGHCN.png'
-  //     ],
-  //   ),
-  // ];
-
-  // List<Products?> get products {
-  //   return [..._allproduct];
-  // }
 }

@@ -5,11 +5,11 @@ import 'package:provider/provider.dart';
 import '../providers/product.dart';
 
 class ProductItem extends StatefulWidget {
-  final String imageUrl;
-  final String productId;
+  // final String imageUrl;
+  // final String productId;
 
-  const ProductItem(
-      {super.key, required this.imageUrl, required this.productId});
+  // const ProductItem(
+  //     {super.key, required this.imageUrl, required this.productId});
 
   @override
   State<ProductItem> createState() => _ProductItemState();
@@ -27,14 +27,14 @@ class _ProductItemState extends State<ProductItem> {
 
   @override
   void initState() {
-    final load = Provider.of<ProductProvider>(context, listen: false);
+    Provider.of<ProductProvider>(context, listen: false).getProducts();
     super.initState();
-    load.getProducts();
   }
 
   @override
   Widget build(BuildContext context) {
     final productData = Provider.of<ProductProvider>(context);
+    final product = Provider.of<Product?>(context);
 
     return productData.isLoading
         ? Card(
@@ -46,12 +46,12 @@ class _ProductItemState extends State<ProductItem> {
               onTap: () {
                 Navigator.of(context).pushNamed(
                   ProductDetailsScreen.routeName,
-                  arguments: widget.productId,
+                  arguments: product?.id,
                 );
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                child: Image.network(widget.imageUrl, errorBuilder:
+                child: Image.network(product?.thumbnail as String, errorBuilder:
                     (BuildContext context, Object exception,
                         StackTrace? stackTrace) {
                   return const Text('😢');
