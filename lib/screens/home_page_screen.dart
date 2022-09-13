@@ -6,20 +6,39 @@ import 'package:provider/provider.dart';
 import 'products_overview_screen.dart';
 import 'package:flutter/material.dart';
 import 'cart_screen.dart';
+import '../providers/product.dart';
 
-class HomePage extends StatelessWidget {
+enum filterOptions {
+  Favorites,
+  All,
+}
+
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
   static const routeName = '/home-page';
 
-  final List<Widget> _widgets = <Widget>[
-    ProductsOverviewScreen(),
-    CartScreen(
-      id: '',
-      quantity: '',
-    ),
-    ProfileScreen(),
-  ];
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<Widget> _widgets = [];
+
+  @override
+  void initState() {
+    _widgets = <Widget>[
+      ProductsOverviewScreen(_showOnlyFavorites),
+      CartScreen(
+        id: '',
+        quantity: '',
+      ),
+      ProfileScreen(),
+    ];
+    super.initState();
+  }
+
+  var _showOnlyFavorites = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +54,33 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          centerTitle: true,
+          actions: [
+            PopupMenuButton(
+              onSelected: (filterOptions selectedValue) {
+                setState(() {
+                  if (selectedValue == filterOptions.Favorites) {
+                    _showOnlyFavorites = true;
+                  } else {
+                    _showOnlyFavorites = false;
+                  }
+                });
+              },
+              icon: Icon(Icons.more_vert),
+              itemBuilder: (_) {
+                return [
+                  PopupMenuItem(
+                    child: Text('Favorites'),
+                    value: filterOptions.Favorites,
+                  ),
+                  PopupMenuItem(
+                    child: Text('Show All'),
+                    value: filterOptions.All,
+                  ),
+                ];
+              },
+            ),
+          ],
           title: const Center(
             child: Text('MyCommerce'),
           ),

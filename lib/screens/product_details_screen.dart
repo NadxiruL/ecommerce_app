@@ -57,6 +57,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     final loadedProduct = Provider.of<ProductProvider>(context, listen: false)
         .findById(productId);
 
+    final isFav = Provider.of<ProductProvider>(context);
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -68,13 +70,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: () {
+                isFav.toggleFav();
+              },
+              icon: isFav.isFavorite
+                  ? Icon(Icons.favorite)
+                  : Icon(Icons.favorite_border),
+            )
+          ],
           elevation: 0,
           backgroundColor: Colors.transparent,
-          title: Text(loadedProduct.title as String),
+          title: Text(loadedProduct.title),
         ),
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -83,7 +95,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   child: Container(
                     color: Colors.amber,
                     child: Image.network(
-                      loadedProduct.thumbnail as String,
+                      loadedProduct.thumbnail,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -91,21 +103,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 Card(
                   elevation: 5,
                   child: Container(
-                    margin: EdgeInsets.only(top: 10),
-                    padding: EdgeInsets.all(8),
+                    margin: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.all(8),
                     height: 50,
                     // color: Colors.amber,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(loadedProduct.title as String),
+                        Text(loadedProduct.title),
                         Text('\$ ${loadedProduct.price}'),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.add_shopping_cart,
-                          ),
-                        ),
+                        Text(loadedProduct.category),
                       ],
                     ),
                   ),
@@ -113,17 +120,22 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 Card(
                   elevation: 5,
                   child: Container(
-                    padding: EdgeInsets.all(8),
-                    margin: EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.all(8),
+                    margin: const EdgeInsets.only(top: 10),
                     // color: Colors.blue,
                     height: 100,
-                    child: Text(loadedProduct.description as String),
+                    child: Text(loadedProduct.description),
                   ),
                 )
               ],
             ),
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.add_shopping_cart),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

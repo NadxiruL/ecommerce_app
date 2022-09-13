@@ -49,6 +49,7 @@ class Product with ChangeNotifier {
     required this.category,
     required this.thumbnail,
     required this.images,
+    this.isFavorite = false,
   });
 
   String id;
@@ -62,6 +63,7 @@ class Product with ChangeNotifier {
   String category;
   String thumbnail;
   List<String> images;
+  bool isFavorite;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"].toString(),
@@ -97,12 +99,44 @@ class ProductProvider with ChangeNotifier {
 
   bool isLoading = false;
 
+  //show favorites
+
+  var _showFavoritesOnly = false;
+
   getProducts() async {
     product = (await (ApiService().fetchProducts()));
 
     if (product != null) {
       isLoading = true;
     }
+    //jika
+    if (_showFavoritesOnly) {
+      return product!.products.where((element) => element.isFavorite).toList();
+    }
+
+    notifyListeners();
+  }
+
+  List<Product>? get favoriteItems {
+    return product?.products.where((element) => element.isFavorite).toList();
+  }
+
+  //show favorites
+
+  // void showFavoritesOnly() {
+  //   _showFavoritesOnly = true;
+  //   notifyListeners();
+  // }
+
+  // void showAll() {
+  //   _showFavoritesOnly = false;
+  //   notifyListeners();
+  // }
+
+  bool isFavorite = true;
+
+  void toggleFav() {
+    isFavorite = !isFavorite;
     notifyListeners();
   }
 

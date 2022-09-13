@@ -17,8 +17,8 @@ class ProfileScreen extends StatelessWidget {
                 radius: 100,
               ),
               Container(
-                margin: EdgeInsets.only(top: 20),
-                padding: EdgeInsets.all(12),
+                margin: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.all(12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
@@ -28,7 +28,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -38,10 +38,10 @@ class ProfileScreen extends StatelessWidget {
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w800),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.only(top: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children: const [
                           Text('Edit profile'),
                           Divider(color: Colors.black),
                           Text('Settings'),
@@ -56,7 +56,7 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Text(
+              const Text(
                 'https://github.com/NadxiruL',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),

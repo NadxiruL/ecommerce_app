@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import '../providers/product.dart';
 
 class ProductItem extends StatefulWidget {
+  const ProductItem({super.key});
+
   // final String imageUrl;
   // final String productId;
 
@@ -16,15 +18,6 @@ class ProductItem extends StatefulWidget {
 }
 
 class _ProductItemState extends State<ProductItem> {
-  // selectProduct(BuildContext context) {
-  //   Navigator.of(context).pushNamed(
-  //     ProductDetailsScreen.routeName,
-  //     arguments: {
-  //       widget.productId,
-  //     },
-  //   );
-  // }
-
   @override
   void initState() {
     Provider.of<ProductProvider>(context, listen: false).getProducts();
@@ -34,7 +27,7 @@ class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     final productData = Provider.of<ProductProvider>(context);
-    final product = Provider.of<Product?>(context);
+    final product = Provider.of<Product?>(context, listen: false);
 
     return productData.isLoading
         ? Card(
@@ -49,16 +42,20 @@ class _ProductItemState extends State<ProductItem> {
                   arguments: product?.id,
                 );
               },
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                child: Image.network(product?.thumbnail as String, errorBuilder:
-                    (BuildContext context, Object exception,
-                        StackTrace? stackTrace) {
-                  return const Text('😢');
-                }),
+              child: Consumer<Product>(
+                builder: (context, value, _) => ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  child: Image.network(
+                    product?.thumbnail as String,
+                    //   errorBuilder: (BuildContext context, Object exception,
+                    //       StackTrace? stackTrace) {
+                    // return const Text('😢');
+                    //}
+                  ),
+                ),
               ),
             ),
           )
-        : CircularProgressIndicator();
+        : const CircularProgressIndicator();
   }
 }

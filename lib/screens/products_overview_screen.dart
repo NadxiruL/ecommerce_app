@@ -12,7 +12,7 @@ class ProductsOverviewScreen extends StatefulWidget {
   //   Color.fromARGB(255, 255, 255, 255)
   // ];
 
-  ProductsOverviewScreen({super.key});
+  const ProductsOverviewScreen(bool showOnlyFavorites, {super.key});
 
   @override
   State<ProductsOverviewScreen> createState() => _ProductsOverviewScreenState();
@@ -21,7 +21,6 @@ class ProductsOverviewScreen extends StatefulWidget {
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<ProductProvider>(context);
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -41,7 +40,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 margin: const EdgeInsets.only(top: 20),
                 // color: Colors.amber,
                 height: 70,
-                child: SearchWidget(),
+                child: const SearchWidget(),
               ),
 
               // CATEGORIES //
@@ -62,16 +61,16 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               ),
               Container(
                 padding: const EdgeInsets.all(8),
-                height: 50,
+                height: 60,
                 // color: Colors.amber,
                 // color: Colors.amberAccent,
-                child: CategoriesWidget(),
+                child: const Categories(),
               ),
 
               // ALL PRODUCTS //
               Container(
-                margin: EdgeInsets.only(top: 10),
-                padding: EdgeInsets.all(12),
+                margin: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.all(12),
                 height: 250,
                 // color: Colors.amber,
                 child: Column(
@@ -88,10 +87,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                       ],
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.only(top: 10),
                       // color: Colors.blue,
                       height: 170,
-                      child: ProductList(),
+                      child: const ProductList(),
                     ),
                   ],
                 ),

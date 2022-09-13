@@ -29,8 +29,42 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final String responseString = response.body;
-      print(responseString);
+      // print(responseString);
       return productsFromJson(responseString);
+    }
+  }
+
+  Future fetchAll() async {
+    var uri = Uri.parse('https://dummyjson.com/products/');
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      final String categories = response.body;
+      //  print(categories);
+      return json.decode(categories);
+    }
+  }
+
+  Future getCategories() async {
+    var uri = Uri.parse('https://dummyjson.com/products/categories');
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      final String categories = response.body;
+      //  print(categories);
+      return json.decode(categories);
+    }
+  }
+
+  Future getProductsCategory(String categoryName) async {
+    var uri =
+        Uri.parse('https://dummyjson.com/products/category/$categoryName');
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      final String categoryName = response.body;
+      print(categoryName);
+      return json.decode(categoryName);
     }
   }
 

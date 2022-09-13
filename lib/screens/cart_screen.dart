@@ -9,7 +9,7 @@ import '../providers/utils.dart';
 class CartScreen extends StatefulWidget {
   final String id;
   final String quantity;
-  CartScreen({super.key, required this.id, required this.quantity});
+  const CartScreen({super.key, required this.id, required this.quantity});
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
