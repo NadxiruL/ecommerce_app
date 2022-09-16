@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/screens/product_details_screen.dart';
+import 'package:ecommerce_app/services/api_service.dart';
 
 import '../providers/product.dart';
 import '../providers/utils.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
           create: (_) => Utils(),
         ),
         ChangeNotifierProvider(
-          create: (_) => ProductProvider(),
+          create: (_) => ApiService(),
         ),
       ],
       child: MaterialApp(

@@ -94,54 +94,54 @@ class Product with ChangeNotifier {
       };
 }
 
-class ProductProvider with ChangeNotifier {
-  Products? product;
+// class ProductProvider with ChangeNotifier {
+//   Products? product;
 
-  bool isLoading = false;
+//   bool isLoading = false;
 
-  //show favorites
+//   //show favorites
 
-  var _showFavoritesOnly = false;
+//   var _showFavoritesOnly = false;
 
-  getProducts() async {
-    product = (await (ApiService().fetchProducts()));
+//   getProducts() async {
+//     product = (await (ApiService().fetchProducts()));
 
-    if (product != null) {
-      isLoading = true;
-    }
-    //jika
-    if (_showFavoritesOnly) {
-      return product!.products.where((element) => element.isFavorite).toList();
-    }
+//     if (product != null) {
+//       isLoading = true;
+//     }
+//     //jika
+//     if (_showFavoritesOnly) {
+//       return product!.products.where((element) => element.isFavorite).toList();
+//     }
 
-    notifyListeners();
-  }
+//     notifyListeners();
+//   }
 
-  List<Product>? get favoriteItems {
-    return product?.products.where((element) => element.isFavorite).toList();
-  }
+//   List<Product>? get favoriteItems {
+//     return product?.products.where((element) => element.isFavorite).toList();
+//   }
 
-  //show favorites
+//   //show favorites
 
-  // void showFavoritesOnly() {
-  //   _showFavoritesOnly = true;
-  //   notifyListeners();
-  // }
+//   // void showFavoritesOnly() {
+//   //   _showFavoritesOnly = true;
+//   //   notifyListeners();
+//   // }
 
-  // void showAll() {
-  //   _showFavoritesOnly = false;
-  //   notifyListeners();
-  // }
+//   // void showAll() {
+//   //   _showFavoritesOnly = false;
+//   //   notifyListeners();
+//   // }
 
-  bool isFavorite = true;
+//   bool isFavorite = true;
 
-  void toggleFav() {
-    isFavorite = !isFavorite;
-    notifyListeners();
-  }
+//   void toggleFav() {
+//     isFavorite = !isFavorite;
+//     notifyListeners();
+//   }
 
-//find product with specific id
-  Product findById(String? productId) {
-    return product!.products.firstWhere((element) => element.id == productId);
-  }
-}
+// //find product with specific id
+//   // Product findById(String? productId) {
+//   //   return product!.products.firstWhere((element) => element.id == productId);
+//   // }
+// }

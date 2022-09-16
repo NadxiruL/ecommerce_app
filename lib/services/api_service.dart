@@ -1,11 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-// import '../providers/cart.dart';
 
 import '../providers/product.dart';
 
-class ApiService {
+class ApiService with ChangeNotifier {
   // Future<Products?> fetchProducts() async {
   //   try {
   //     var client = http.Client();
@@ -22,26 +22,32 @@ class ApiService {
   //   }
   // }
 
-  Future<Products?> fetchProducts() async {
-    // final  apiUrl = "https://reqres.in/api/users";
-    var uri = Uri.parse('https://dummyjson.com/products');
-    final response = await http.get(uri);
+  // Future fetchProducts() async {
+  //   // final  apiUrl = "https://reqres.in/api/users";
+  //   var uri = Uri.parse('https://dummyjson.com/products');
+  //   final response = await http.get(uri);
 
-    if (response.statusCode == 200) {
-      final String responseString = response.body;
-      // print(responseString);
-      return productsFromJson(responseString);
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     final String responseString = response.body;
+  //     // print(responseString);
+  //     return json.decode(responseString);
+  //   }
+  // }
 
-  Future fetchAll() async {
+  var data = [];
+  List? filteredProducts;
+  Products? allproducts;
+  String searchText = '';
+
+  Future<Products?> fetchAll() async {
     var uri = Uri.parse('https://dummyjson.com/products/');
     final response = await http.get(uri);
 
     if (response.statusCode == 200) {
-      final String categories = response.body;
+      final String allProducts = response.body;
       //  print(categories);
-      return json.decode(categories);
+      // return productsFromJson(allProducts);
+      return productsFromJson(allProducts);
     }
   }
 
@@ -63,10 +69,30 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final String categoryName = response.body;
-      print(categoryName);
+      //  print(categoryName);
       return json.decode(categoryName);
     }
   }
+
+  Future getSingleProducts(String id) async {
+    var uri = Uri.parse('https://dummyjson.com/products/$id');
+    final respose = await http.get(uri);
+
+    if (respose.statusCode == 200) {
+      final String singleProduct = respose.body;
+      //  print(singleProduct);
+      return json.decode(singleProduct);
+    }
+  }
+
+  Future searchProducts(String keyword) async {
+    allproducts = (await ApiService().fetchAll());
+    filteredProducts = allproducts?.products.where((element) {
+      return element.title.toLowerCase().contains(keyword.toLowerCase());
+    }).toList();
+    notifyListeners();
+  }
+}
 
 //   Future<Cart?> addtoCart(String id, String title, String price) async {
 //     var uri = Uri.parse('https://dummyjson.com/carts/add');
@@ -90,4 +116,3 @@ class ApiService {
 //     }
 //   }
 // }
-}

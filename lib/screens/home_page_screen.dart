@@ -29,10 +29,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _widgets = <Widget>[
       ProductsOverviewScreen(_showOnlyFavorites),
-      CartScreen(
-        id: '',
-        quantity: '',
-      ),
       ProfileScreen(),
     ];
     super.initState();
@@ -94,10 +90,6 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              label: 'Cart',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),

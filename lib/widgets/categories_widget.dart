@@ -46,8 +46,10 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categories =
+        Provider.of<ApiService>(context, listen: false).getCategories();
     return FutureBuilder(
-      future: ApiService().getCategories(),
+      future: categories,
       builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(

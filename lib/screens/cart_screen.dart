@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:ecommerce_app/providers/usermodel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../providers/cart.dart';
@@ -14,29 +13,10 @@ class CartScreen extends StatefulWidget {
   State<CartScreen> createState() => _CartScreenState();
 }
 
-Future<UserModel?> submit(String name, String job) async {
-  // var client = http.Client();
-  // var uri = Uri.parse('https://reqres.in/api/users');
-  // var response = await http.post(uri, body: {
-  //   "name": name,
-  //   "job": job,
-  // });
-  // print(response.body);
-  // if (response.statusCode == 201) {
-  //   var json = response.body;
-
-  //   return userModelFromJson(json);
-  // } else {
-  //   return null;
-  // }
-}
-
 class _CartScreenState extends State<CartScreen> {
   // const CartScreen({super.key});
 
   bool isAvailable = true;
-
-  UserModel? _userModel;
 
   @override
   Widget build(BuildContext context) {
