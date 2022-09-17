@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
 
 class AddtoCart extends StatelessWidget {
-  const AddtoCart({
-    super.key,
-  });
+  final VoidCallback onPress;
+  final Widget iconButton;
+  const AddtoCart({super.key, required this.onPress, required this.iconButton});
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Added to cart'),
-            duration: Duration(seconds: 1),
-          ),
-        );
-      },
-      child: Icon(Icons.add_shopping_cart),
+      onPressed: onPress,
+      child: iconButton,
     );
   }
 }

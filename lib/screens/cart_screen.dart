@@ -6,9 +6,9 @@ import '../providers/cart.dart';
 import '../providers/utils.dart';
 
 class CartScreen extends StatefulWidget {
-  final String id;
-  final String quantity;
-  const CartScreen({super.key, required this.id, required this.quantity});
+  // final String id;
+  // final String quantity;
+  const CartScreen({super.key});
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
@@ -16,56 +16,33 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   // const CartScreen({super.key});
 
-  bool isAvailable = true;
+  bool isAvailable = false;
 
   @override
   Widget build(BuildContext context) {
-    // return Container(
-    //   decoration: BoxDecoration(
-    //     gradient: LinearGradient(
-    //       begin: Alignment.bottomCenter,
-    //       end: Alignment.topCenter,
-    //       colors: color,
-    //     ),
-    //   ),
-    // child: Scaffold(
-    //   backgroundColor: Colors.transparent,
-    return Column(
-      children: [
-        // Container(
-        //   child: ElevatedButton(
-        //     onPressed: () async {
-        //       final UserModel? userModel =
-        //           await submit('nadzirulx', 'kuli sahaja');
-        //       setState(() {
-        //         _userModel = userModel;
-        //       });
-        //     },
-        //     child: Text('Press'),
-        //   ),
-        // ),
-        // isAvailable
-        //     ? Text("The user is ${_userModel?.name ?? ''}")
-        //     : CircularProgressIndicator()
-        Text('test'),
-        Text(widget.id),
-        Text(widget.quantity),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          colors: color,
+        ),
+      ),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Cart'),
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+        ),
+        backgroundColor: Colors.transparent,
+        body: Container(
+          padding: const EdgeInsets.all(12),
+          child: const SingleChildScrollView(
+            child: Text('ehe'),
+          ),
+        ),
+      ),
     );
-    //   ),
-    // );
-    //
-    //   ],
-    // );
-    // isAvailable
-    //     ? Container()
-    //     : Column(
-    //         children: [
-    //           Text(
-    //             'Your Cart is EMPTY',
-    //             style: TextStyle(fontSize: 30),
-    //           ),
-    //         ],
-    //       );
   }
 }

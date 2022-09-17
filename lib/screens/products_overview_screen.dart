@@ -12,7 +12,7 @@ class ProductsOverviewScreen extends StatefulWidget {
   //   Color.fromARGB(255, 255, 255, 255)
   // ];
 
-  const ProductsOverviewScreen(bool showOnlyFavorites, {super.key});
+  const ProductsOverviewScreen({super.key});
 
   @override
   State<ProductsOverviewScreen> createState() => _ProductsOverviewScreenState();

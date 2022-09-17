@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'cart_screen.dart';
 import '../providers/product.dart';
 
-enum filterOptions {
-  Favorites,
-  All,
-}
+// enum filterOptions {
+//   Favorites,
+//   All,
+// }
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -28,13 +28,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _widgets = <Widget>[
-      ProductsOverviewScreen(_showOnlyFavorites),
+      ProductsOverviewScreen(),
       ProfileScreen(),
     ];
     super.initState();
   }
 
-  var _showOnlyFavorites = false;
+  // var _showOnlyFavorites = false;
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +52,22 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           centerTitle: true,
           actions: [
-            PopupMenuButton(
-              onSelected: (filterOptions selectedValue) {
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => CartScreen(),
+                ));
+              },
+              icon: Icon(Icons.shopping_cart),
+            ),
+            /*  PopupMenuButton(
+              onSelected: (selectedValue) {
                 setState(() {
-                  if (selectedValue == filterOptions.Favorites) {
-                    _showOnlyFavorites = true;
-                  } else {
-                    _showOnlyFavorites = false;
-                  }
+                  // if (selectedValue == filterOptions.Favorites) {
+                  //   // _showOnlyFavorites = true;
+                  // } else {
+                  //   // _showOnlyFavorites = false;
+                  // }
                 });
               },
               icon: Icon(Icons.more_vert),
@@ -67,15 +75,15 @@ class _HomePageState extends State<HomePage> {
                 return [
                   PopupMenuItem(
                     child: Text('Favorites'),
-                    value: filterOptions.Favorites,
+                    value: '',
                   ),
                   PopupMenuItem(
                     child: Text('Show All'),
-                    value: filterOptions.All,
+                    value: '',
                   ),
                 ];
               },
-            ),
+            ), */
           ],
           title: const Center(
             child: Text('MyCommerce'),

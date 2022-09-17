@@ -18,9 +18,10 @@ class ProductList extends StatelessWidget {
       future: product,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          final data = snapshot.data;
           return ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: snapshot.data?.products.length,
+            itemCount: data?.products.length,
             itemBuilder: (context, index) {
               return Card(
                 elevation: 5,
@@ -32,10 +33,9 @@ class ProductList extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(
                           context, ProductDetailsScreen.routeName,
-                          arguments: snapshot.data?.products[index].id);
+                          arguments: data?.products[index].id);
                     },
-                    child: Image.network(
-                        snapshot.data?.products[index].thumbnail ?? ''),
+                    child: Image.network(data?.products[index].thumbnail ?? ''),
                   ),
                 ),
               );

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../providers/cart.dart';
 import '../providers/product.dart';
 
 class ApiService with ChangeNotifier {
@@ -91,6 +92,28 @@ class ApiService with ChangeNotifier {
       return element.title.toLowerCase().contains(keyword.toLowerCase());
     }).toList();
     notifyListeners();
+  }
+}
+
+Future<Cart?> addtoCart(String userId, String id, String quantity) async {
+  var uri = Uri.parse('https://dummyjson.com/carts/add');
+  var response = await http.post(
+    uri,
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode({
+      "userId": userId,
+      "products": [
+        {
+          "id": id,
+          "quantity": quantity,
+        },
+      ]
+    }),
+  );
+  print(response.body);
+  if (response.statusCode == 201) {
+    var json = response.body;
+    return cartFromJson(json);
   }
 }
 
