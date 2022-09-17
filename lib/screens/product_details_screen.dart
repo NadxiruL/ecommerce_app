@@ -109,7 +109,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
                 onPress: () async {
                   setState(() {
-                    addtoCart(
+                    cart.addtoCart(
                       '1',
                       snapshot.data['id'].toString(),
                       '4',
